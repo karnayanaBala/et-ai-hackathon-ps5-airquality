@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>VayuDrishti — Architecture Diagram</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0a0f1e;
+    color: #e2e8f0;
+    font-family: 'Space Grotesk', sans-serif;
+    padding: 40px;
+    min-height: 100vh;
+  }
+  h1 { text-align:center; font-size:22px; color:#00d4aa; margin-bottom:6px; }
+  .subtitle { text-align:center; color:#64748b; font-size:13px; margin-bottom:40px; }
+
+  .arch {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .layer {
+    background: #111827;
+    border: 1px solid #1f2d45;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 0;
+  }
+
+  .layer-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #64748b;
+    margin-bottom: 14px;
+  }
+
+  .components {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .comp {
+    background: #1a2235;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .comp-icon { font-size: 18px; flex-shrink: 0; }
+
+  .comp-name { font-size: 12px; font-weight: 600; }
+  .comp-tech { font-size: 10px; color: #64748b; font-family: 'JetBrains Mono'; margin-top: 2px; }
+
+  /* color themes per layer */
+  .data .comp { border-color: #1e3a5f; }
+  .data .comp-name { color: #4f8ef7; }
+
+  .ingestion .comp { border-color: #1e3f2e; }
+  .ingestion .comp-name { color: #10b981; }
+
+  .ai .comp { border-color: #3b2560; }
+  .ai .comp-name { color: #a78bfa; }
+
+  .intelligence .comp { border-color: #4a2c10; }
+  .intelligence .comp-name { color: #f97316; }
+
+  .output .comp { border-color: #1f3545; }
+  .output .comp-name { color: #00d4aa; }
+
+  /* Arrow */
+  .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    color: #334155;
+    font-size: 22px;
+    position: relative;
+  }
+
+  .arrow::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #1f2d45, #334155);
+    transform: translateX(-50%);
+  }
+
+  .arrow span {
+    background: #0a0f1e;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono';
+    color: #334155;
+    z-index: 1;
+  }
+
+  footer {
+    text-align:center;
+    margin-top:32px;
+    font-size:11px;
+    color:#334155;
+  }
+</style>
+</head>
+<body>
+
+<h1>🌬️ VayuDrishti — System Architecture</h1>
+<div class="subtitle">AI-Powered Urban Air Quality Intelligence Platform &nbsp;|&nbsp; ET AI Hackathon 2026 — PS5</div>
+
+<div class="arch">
+
+  <!-- DATA SOURCES -->
+  <div class="layer data">
+    <div class="layer-label">Layer 1 — Data Sources</div>
+    <div class="components">
+      <div class="comp">
+        <div class="comp-icon">📡</div>
+        <div>
+          <div class="comp-name">CAAQMS Sensors</div>
+          <div class="comp-tech">900+ stations • Real-time IoT</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🛰️</div>
+        <div>
+          <div class="comp-name">Sentinel-5P Satellite</div>
+          <div class="comp-tech">NO₂, SO₂, CO, Aerosol</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🌦️</div>
+        <div>
+          <div class="comp-name">IMD Weather API</div>
+          <div class="comp-tech">Wind, Temp, Humidity, Pressure</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🚗</div>
+        <div>
+          <div class="comp-name">Traffic & Mobility</div>
+          <div class="comp-tech">Vehicle counts, AIS, GPS</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🏗️</div>
+        <div>
+          <div class="comp-name">Permit Registries</div>
+          <div class="comp-tech">Construction, Industry permits</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><span>Ingestion Pipeline</span></div>
+
+  <!-- INGESTION -->
+  <div class="layer ingestion">
+    <div class="layer-label">Layer 2 — Data Ingestion & Processing</div>
+    <div class="components">
+      <div class="comp">
+        <div class="comp-icon">⚡</div>
+        <div>
+          <div class="comp-name">Apache Kafka</div>
+          <div class="comp-tech">Real-time stream processing</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🔧</div>
+        <div>
+          <div class="comp-name">Data Cleaning & QC</div>
+          <div class="comp-tech">Anomaly removal, gap-filling</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🗃️</div>
+        <div>
+          <div class="comp-name">TimescaleDB</div>
+          <div class="comp-tech">Time-series data warehouse</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🗺️</div>
+        <div>
+          <div class="comp-name">PostGIS / GeoPandas</div>
+          <div class="comp-tech">Geospatial feature extraction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><span>Feature Engineering</span></div>
+
+  <!-- AI MODELS -->
+  <div class="layer ai">
+    <div class="layer-label">Layer 3 — AI / ML Models</div>
+    <div class="components">
+      <div class="comp">
+        <div class="comp-icon">🔮</div>
+        <div>
+          <div class="comp-name">LSTM Forecasting</div>
+          <div class="comp-tech">24–72hr AQI prediction per ward</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🌲</div>
+        <div>
+          <div class="comp-name">Random Forest</div>
+          <div class="comp-tech">Source attribution model</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🧩</div>
+        <div>
+          <div class="comp-name">Dispersion Model</div>
+          <div class="comp-tech">AERMOD-based atmos. modelling</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🤖</div>
+        <div>
+          <div class="comp-name">LLM (Claude / GPT)</div>
+          <div class="comp-tech">Multilingual advisory generation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><span>Intelligence Layer</span></div>
+
+  <!-- INTELLIGENCE -->
+  <div class="layer intelligence">
+    <div class="layer-label">Layer 4 — Intelligence Agents</div>
+    <div class="components">
+      <div class="comp">
+        <div class="comp-icon">🔍</div>
+        <div>
+          <div class="comp-name">Source Attribution Agent</div>
+          <div class="comp-tech">Ward-level polluter identification</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">📊</div>
+        <div>
+          <div class="comp-name">Forecast Agent</div>
+          <div class="comp-tech">1km grid, 72hr prediction</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🚔</div>
+        <div>
+          <div class="comp-name">Enforcement Agent</div>
+          <div class="comp-tech">Priority ranking + evidence pack</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🔔</div>
+        <div>
+          <div class="comp-name">Alert Orchestrator</div>
+          <div class="comp-tech">Multi-channel alert dispatch</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow"><span>Output Channels</span></div>
+
+  <!-- OUTPUT -->
+  <div class="layer output">
+    <div class="layer-label">Layer 5 — Output & Interfaces</div>
+    <div class="components">
+      <div class="comp">
+        <div class="comp-icon">🖥️</div>
+        <div>
+          <div class="comp-name">Command Dashboard</div>
+          <div class="comp-tech">React • Real-time maps & charts</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">📱</div>
+        <div>
+          <div class="comp-name">Citizen Mobile App</div>
+          <div class="comp-tech">Push alerts • 12 languages</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">📋</div>
+        <div>
+          <div class="comp-name">Enforcement Reports</div>
+          <div class="comp-tech">Auto-generated PDF evidence</div>
+        </div>
+      </div>
+      <div class="comp">
+        <div class="comp-icon">🔗</div>
+        <div>
+          <div class="comp-name">API / OpenData</div>
+          <div class="comp-tech">REST API for city integrations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>ET AI Hackathon 2026 — Team: karnayanaBala &nbsp;|&nbsp; PS5: AI-Powered Urban Air Quality Intelligence</footer>
+
+</body>
+</html>
